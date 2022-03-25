@@ -1,0 +1,24 @@
+#!/bin/bash
+
+for i in *.in; do
+	expected=${i}
+    expected=${expected%???}.out
+	
+	actual=$(mktemp)
+	
+    ./scannerTester < ${i} > ${actual} 
+	
+	if ! cmp -s ${expected} ${actual} ; then
+		echo "Test Failed: ${i}"
+		echo 'Input:'
+		cat ${i}
+		echo ""
+		echo "Expected:"
+		cat ${expected}
+		echo "Actual:"
+		cat ${actual}
+	
+	fi
+	rm ${actual}
+	
+done
