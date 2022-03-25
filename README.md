@@ -13,3 +13,6 @@ Example:
 
 1 + 2 -> NUM 1, PLUS +, NUM 2
 
+or
+
+sqrt(2) -> ID sqrt, LPAREN (, NUM 2, RPAREN )
