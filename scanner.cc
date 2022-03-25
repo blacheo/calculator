@@ -56,6 +56,8 @@ ScannerDFA::State ScannerDFA::transition(State state, char nextChar) {
                 return State::RPAREN;
             case '*':
                 return State::STAR;
+            case '/':
+                return State::FORWARD_SLASH;
         }
     }
     if (state == State::NUM && isdigit(nextChar)) {
@@ -94,13 +96,16 @@ ostream & operator<<(ostream &out, const Token &t) {
         case Symbol::ID:
             cout << "ID";
             break;
+        case Symbol::FORWARD_SLASH:
+            cout << "FORWARD_SLASH";
+            break;
     }
     cout << ' ' << t.lexeme;
     return out;
 }   
 
 const set<ScannerDFA::State> ScannerDFA::acceptingStates = {State::NUM, State::PLUS, State::MINUS,
- State::CARET, State::LPAREN, State::RPAREN, State::ID, State::STAR};
+ State::CARET, State::LPAREN, State::RPAREN, State::ID, State::STAR, State::FORWARD_SLASH};
  
 
 Symbol ScannerDFA::stateToSymbol(State s) {
@@ -121,6 +126,8 @@ Symbol ScannerDFA::stateToSymbol(State s) {
         return Symbol::NUM;
         case State::ID:
         return Symbol::ID;
+        case State::FORWARD_SLASH:
+        return Symbol::FORWARD_SLASH;
     }
     throw ScanningFailure{"Failed"};
 }

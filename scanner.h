@@ -9,13 +9,14 @@
 // LPAREN
 // RPAREN
 // ID (strings starting with a letter. Used for variables and functions)
+// FORWARD_SLASH
 #include <iostream>
 #include <string>
 #include <vector>
 #include <set>
 using namespace std;
 
-enum class Symbol {NUM, PLUS, MINUS, STAR, CARET, LPAREN, RPAREN, ID};
+enum class Symbol {NUM, PLUS, MINUS, STAR, CARET, LPAREN, RPAREN, ID, FORWARD_SLASH};
 
 class Token {
     public:
@@ -31,7 +32,8 @@ class Token {
 
 class ScannerDFA {
     public:
-    enum class State {START, FAIL, NUM, PLUS, MINUS, STAR, CARET, LPAREN, RPAREN, WHITESPACE, ID};
+    enum class State {START, FAIL, NUM, PLUS, MINUS, STAR, CARET, LPAREN, RPAREN, 
+    WHITESPACE, ID, FORWARD_SLASH};
     static const set<State> acceptingStates;
 
     static State transition(State state, char nextChar);
